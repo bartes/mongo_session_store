@@ -69,7 +69,7 @@ module ActionDispatch
 
         def unpack(packed)
           return nil unless packed
-          Marshal.load(StringIO.new(packed.to_s))
+          Marshal.load(StringIO.new(packed.data.to_s))
         end
 
     end
