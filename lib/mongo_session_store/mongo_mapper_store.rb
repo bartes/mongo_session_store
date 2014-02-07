@@ -10,6 +10,7 @@ module ActionDispatch
         set_collection_name MongoSessionStore.collection_name
 
         key :_id,  String
+        key :ticket, String
         key :data, Binary, :default => Marshal.dump({})
 
         timestamps!

@@ -5,10 +5,11 @@ module ActionDispatch
   module Session
     class MongoStore < MongoStoreBase
       class Session
-        attr_accessor :_id, :data, :created_at, :updated_at
+        attr_accessor :_id, :data, :created_at, :updated_at, :ticket
 
         def initialize(options = {})
           @_id        = options[:_id]
+          @ticket     = options[:ticket]
           @data       = options[:data] || BSON::Binary.new(Marshal.dump({}))
           @created_at = options[:created_at]
           @updated_at = options[:updated_at]
@@ -23,12 +24,17 @@ module ActionDispatch
           collection.remove :_id => _id
         end
 
+        def destroy_by_ticket
+          collection.remove :ticket => ticket
+        end
+
         def save
           @created_at ||= Time.now
           @updated_at   = Time.now
-          
+
           collection.save(
             :_id        => @_id,
+            :ticket     => @ticket,
             :data       => BSON::Binary.new(@data),
             :created_at => @created_at,
             :updated_at => @updated_at

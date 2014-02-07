@@ -11,6 +11,7 @@ module ActionDispatch
 
         store_in :collection => MongoSessionStore.collection_name
 
+        field :ticket, :type => String
         field :data, :type => BSON::Binary, :default => BSON::Binary.new(Marshal.dump({}))
       end
 

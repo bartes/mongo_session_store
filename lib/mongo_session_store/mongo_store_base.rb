@@ -1,7 +1,7 @@
 module ActionDispatch
   module Session
     class MongoStoreBase < AbstractStore
-      
+
       SESSION_RECORD_KEY = 'rack.session.record'.freeze
       begin
         ENV_SESSION_OPTIONS_KEY = Rack::Session::Abstract::ENV_SESSION_OPTIONS_KEY
